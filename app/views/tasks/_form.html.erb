@@ -34,10 +34,10 @@
         </div>
       <% end %>
       <% if params[:action] == "edit" %>
-        <div class="mb-3">
-          <%= form.label :status, style: "display: block" %>
-          <%= form.select :status, Task.statuses.keys, {}, { class: "form-control" } %>
-        </div>
+      <div class="mb-3">
+        <%= form.label :status, style: "display: block" %>
+        <%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, {}, { class: "form-control" } %>
+      </div>
       <% end %>
 
       <div class="mb-3">
