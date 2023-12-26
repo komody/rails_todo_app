@@ -1,17 +1,8 @@
 <div class="row">
   <div class="col-md-6">
-    <%= form_with(model: task) do |form| %>
-      <% if task.errors.any? %>
-        <div style="color: red">
-          <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
-
-          <ul>
-            <% task.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+    <%= form_with(model: task) do |form| %> 
+      <%= render "layouts/error_messages", model: form.object %><!-- こうする -->
+    
       <% if params[:action] == "new" || params[:action] == "create" %>
         <div class="mb-3">
           <%= form.label :title, style: "display: block" %>
@@ -33,11 +24,12 @@
           <%= form.datetime_field :end_time, class: "form-control" %>
         </div>
       <% end %>
+
       <% if params[:action] == "edit" %>
-      <div class="mb-3">
-        <%= form.label :status, style: "display: block" %>
-        <%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, {}, { class: "form-control" } %>
-      </div>
+        <div class="mb-3">
+          <%= form.label :status, style: "display: block" %>
+          <%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, {}, { class: "form-control" } %>
+        </div>
       <% end %>
 
       <div class="mb-3">
